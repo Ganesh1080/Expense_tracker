@@ -125,13 +125,13 @@ def login():
             
     return render_template('login.html')
 
-@app.route('/logout')
-def logout():
-    user_name = session.get('user_name', 'User')
-    # ✅ COMPLETELY CLEAR THE SESSION
-    session.clear()
-    flash(f'Goodbye {user_name}! You have been logged out.', 'info')
-    return redirect(url_for('login'))
+# @app.route('/logout')
+# def logout():
+#     user_name = session.get('user_name', 'User')
+#     # ✅ COMPLETELY CLEAR THE SESSION
+#     session.clear()
+#     flash(f'Goodbye {user_name}! You have been logged out.', 'info')
+#     return redirect(url_for('login'))
 
 @app.route('/')
 @login_required
@@ -482,6 +482,24 @@ def create_test_user():
 
 # 
 
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    if request.method == 'GET':
+        # Show logout confirmation page
+        current_user = get_current_user()
+        if not current_user:
+            # If not logged in, redirect to login
+            return redirect(url_for('login'))
+        return render_template('logout.html', current_user=current_user)
+    
+    elif request.method == 'POST':
+        # Actually perform logout
+        user_name = session.get('user_name', 'User')
+        # ✅ COMPLETELY CLEAR THE SESSION
+        session.clear()
+        flash(f'Goodbye {user_name}! You have been logged out successfully.', 'success')
+        return redirect(url_for('login'))
 
 
 # ✅ CONTEXT PROCESSOR TO MAKE CURRENT USER AVAILABLE IN ALL TEMPLATES

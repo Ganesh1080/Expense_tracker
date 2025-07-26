@@ -3,31 +3,153 @@
 {% block title %}Login - Expense Tracker{% endblock %}
 
 {% block content %}
-<div class="login-container">
-    <h2>Login</h2>
+<style>
+    .login-container {
+        max-width: 400px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .login-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .login-icon {
+        font-size: 3rem;
+        color: #007bff;
+        margin-bottom: 1rem;
+    }
+    
+    .btn-login {
+        background: linear-gradient(45deg, #007bff, #0056b3);
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-weight: 600;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+        color: white;
+    }
+    
+    .form-control {
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    .link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    
+    .link:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+    
+    .welcome-back {
+        background: linear-gradient(45deg, #28a745, #20c997);
+        color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    
+    .logout-success {
+        background: linear-gradient(45deg, #17a2b8, #138496);
+        color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+</style>
 
-    {% with messages = get_flashed_messages() %}
+<div class="login-container">
+    <div class="login-header">
+        <div class="login-icon">🔐</div>
+        <h2>Welcome Back!</h2>
+        <p class="text-muted">Sign in to your account</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div class="alert alert-warning text-center">
-                {{ messages[0] }}
-            </div>
+            {% for category, message in messages %}
+                {% if category == 'success' %}
+                    <div class="logout-success">
+                        <strong>✓</strong> {{ message }}
+                    </div>
+                {% elif 'Welcome back' in message %}
+                    <div class="welcome-back">
+                        <strong>🎉</strong> {{ message }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }}">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% endif %}
     {% endwith %}
 
     <form method="POST">
-        <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" name="email" required>
+        <div class="form-group mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" name="email" id="email" required 
+                   placeholder="Enter your email">
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" required>
+        <div class="form-group mb-4">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="password" required 
+                   placeholder="Enter your password">
         </div>
-        <button type="submit" class="btn btn-login">Login</button>
-        <p class="text-center mt-3">
+        <button type="submit" class="btn btn-login mb-3">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <p class="text-center">
             Don't have an account? 
-            <a href="{{ url_for('register') }}" class="link">Register</a>
+            <a href="{{ url_for('register') }}" class="link">Create Account</a>
         </p>
     </form>
+    
+    <div class="text-center mt-3">
+        <small class="text-muted">
+            <i class="fas fa-shield-alt"></i> Your data is secure with us
+        </small>
+    </div>
 </div>
+
+<script>
+    // Add some interactive feedback
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const submitBtn = document.querySelector('.btn-login');
+        
+        form.addEventListener('submit', function() {
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+            submitBtn.disabled = true;
+        });
+        
+        // Auto-focus on email field
+        document.getElementById('email').focus();
+    });
+</script>
 {% endblock %}

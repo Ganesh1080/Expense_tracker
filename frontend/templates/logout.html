@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - Expense Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .logout-container {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logout-icon {
+            font-size: 4rem;
+            color: #dc3545;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .logout-title {
+            color: #333;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .logout-message {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .btn-logout {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+            color: white;
+        }
+        
+        .btn-cancel {
+            background: linear-gradient(45deg, #6c757d, #5a6268);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        
+        .btn-cancel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.3);
+            color: white;
+        }
+        
+        .countdown {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 1rem;
+        }
+        
+        .auto-logout-bar {
+            width: 100%;
+            height: 4px;
+            background: #f8f9fa;
+            border-radius: 2px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        
+        .auto-logout-progress {
+            height: 100%;
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            width: 100%;
+            animation: shrink 10s linear forwards;
+        }
+        
+        @keyframes shrink {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="logout-container">
+        <div class="logout-icon">👋</div>
+        <h2 class="logout-title">Logout Confirmation</h2>
+        <p class="logout-message">Are you sure you want to logout from your account?</p>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="logout-actions">
+            <form method="POST" action="{{ url_for('logout') }}" style="display: inline;">
+                <button type="submit" class="btn btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Yes, Logout
+                </button>
+            </form>
+            <a href="{{ url_for('index') }}" class="btn btn-cancel">
+                <i class="fas fa-times"></i> Cancel
+            </a>
+        </div>
+        
+        <div class="countdown" id="countdown">Auto logout in <span id="timer">10</span> seconds</div>
+        <div class="auto-logout-bar">
+            <div class="auto-logout-progress"></div>
+        </div>
+        
+        <div class="mt-3">
+            <small class="text-muted">You will be redirected to the login page after logout</small>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Auto logout countdown
+        let timeLeft = 10;
+        const timerElement = document.getElementById('timer');
+        const countdownElement = document.getElementById('countdown');
+        
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                // Auto submit logout form
+                document.querySelector('form').submit();
+            }
+        }, 1000);
+        
+        // Cancel auto logout if user interacts
+        document.addEventListener('click', () => {
+            clearInterval(countdown);
+            countdownElement.style.display = 'none';
+            document.querySelector('.auto-logout-progress').style.display = 'none';
+        });
+        
+        document.addEventListener('keypress', () => {
+            clearInterval(countdown);
+            countdownElement.style.display = 'none';
+            document.querySelector('.auto-logout-progress').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

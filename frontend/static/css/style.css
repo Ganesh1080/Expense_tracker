@@ -1,32 +1,69 @@
-/* login and register  */
-/* style.css */
+/* ======================= */
+/* Login and Register CSS  */
+/* ======================= */
 body {
-    background-color: #f5f6fa;
-    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(120deg, #f8f9fa, #e9ecef);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease-in-out;
 }
 
 .login-container {
     max-width: 400px;
     margin: 80px auto;
     padding: 30px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    animation: slideFade 0.6s ease-out forwards;
+}
+
+@keyframes slideFade {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .login-container h2 {
     text-align: center;
     margin-bottom: 25px;
-    color: #333;
+    color: #007bff;
+    text-shadow: 0 0 5px #007bff, 0 0 10px #6610f2;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px #007bff;
+    }
+    to {
+        text-shadow: 0 0 15px #6610f2;
+    }
 }
 
 .form-group {
     margin-bottom: 20px;
+    position: relative;
 }
 
 .form-control {
     height: 45px;
     font-size: 16px;
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding-left: 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }
 
 .btn-login {
@@ -36,11 +73,15 @@ body {
     padding: 10px;
     font-size: 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
 }
 
 .btn-login:hover {
     background-color: #0056b3;
+    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.35);
+    transform: scale(1.03);
 }
 
 .link {
@@ -54,17 +95,14 @@ body {
 
 .alert {
     margin-bottom: 20px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-
-
-
-
-
-
-
-
+/* =============================== */
 /* Custom Styles for Expense Tracker */
+/* =============================== */
 
 :root {
     --primary-color: #0d6efd;
@@ -77,18 +115,15 @@ body {
     --dark-color: #212529;
 }
 
-/* General Styles */
-body {
-    background-color: #f5f5f5;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 .navbar-brand {
     font-weight: bold;
     font-size: 1.5rem;
+    color: #007bff;
+    text-shadow: 0 0 5px #007bff, 0 0 10px #6610f2;
+    animation: glow 2s infinite alternate;
 }
 
-/* Card Animations */
+/* Cards */
 .card {
     border: none;
     border-radius: 15px;
@@ -102,23 +137,20 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Statistics Cards */
-.card.bg-primary,
-.card.bg-success,
-.card.bg-info,
-.card.bg-warning {
-    border-radius: 15px;
-    transition: transform 0.3s ease;
-}
-
 .card.bg-primary:hover,
 .card.bg-success:hover,
 .card.bg-info:hover,
 .card.bg-warning:hover {
-    transform: scale(1.05);
+    animation: pulseCard 0.8s ease-in-out;
 }
 
-/* Table Styles */
+@keyframes pulseCard {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.01); box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2); }
+    100% { transform: scale(1); }
+}
+
+/* Table */
 .table {
     border-radius: 10px;
     overflow: hidden;
@@ -136,21 +168,18 @@ body {
     transition: background-color 0.3s ease;
 }
 
-/* Form Styles */
-.form-control,
+/* Form Styling */
 .form-select {
     border-radius: 10px;
     border: 2px solid #e9ecef;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-control:focus,
 .form-select:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }
 
-/* Button Styles */
+/* Buttons */
 .btn {
     border-radius: 10px;
     font-weight: 500;
@@ -187,7 +216,7 @@ body {
     border: none;
 }
 
-/* Progress Bar */
+/* Progress */
 .progress {
     border-radius: 10px;
     height: 10px;
@@ -198,18 +227,11 @@ body {
     border-radius: 10px;
 }
 
-/* Badge Styles */
+/* Badges */
 .badge {
     font-size: 0.85em;
     padding: 0.4em 0.8em;
     border-radius: 12px;
-}
-
-/* Alert Styles */
-.alert {
-    border-radius: 12px;
-    border: none;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Footer */
@@ -217,28 +239,102 @@ footer {
     margin-top: auto;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
+    padding: 10px 0;
+    text-align: center;
 }
 
-/* Chart Containers */
+/* Charts */
 #categoryChart,
 #timelineChart {
     max-height: 400px;
 }
 
-/* Loading Animation */
+/* Loading Spinner */
 .loading {
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    width: 30px;
+    height: 30px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    border-top-color: #fff;
+    border-top-color: var(--primary-color);
     animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
     to {
         transform: rotate(360deg);
+    }
+}
+
+/* Tooltip */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: var(--dark-color);
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Icons */
+.fas, .far {
+    margin-right: 0.25rem;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .card {
+        margin-bottom: 15px;
+    }
+
+    .table-responsive {
+        border-radius: 10px;
+    }
+
+    .btn-group-vertical .btn {
+        margin-bottom: 5px;
     }
 }
 
