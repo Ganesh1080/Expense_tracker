@@ -1,0 +1,377 @@
+/* login and register  */
+/* style.css */
+body {
+    background-color: #f5f6fa;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    height: 45px;
+    font-size: 16px;
+}
+
+.btn-login {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+.link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.alert {
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+
+
+/* Custom Styles for Expense Tracker */
+
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --info-color: #0dcaf0;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+}
+
+/* General Styles */
+body {
+    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Card Animations */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Statistics Cards */
+.card.bg-primary,
+.card.bg-success,
+.card.bg-info,
+.card.bg-warning {
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.card.bg-primary:hover,
+.card.bg-success:hover,
+.card.bg-info:hover,
+.card.bg-warning:hover {
+    transform: scale(1.05);
+}
+
+/* Table Styles */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: 600;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+/* Form Styles */
+.form-control,
+.form-select {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1.2rem;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), #4dabf7);
+    border: none;
+}
+
+.btn-success {
+    background: linear-gradient(45deg, var(--success-color), #51cf66);
+    border: none;
+}
+
+.btn-info {
+    background: linear-gradient(45deg, var(--info-color), #74c0fc);
+    border: none;
+}
+
+.btn-warning {
+    background: linear-gradient(45deg, var(--warning-color), #ffd43b);
+    border: none;
+}
+
+.btn-danger {
+    background: linear-gradient(45deg, var(--danger-color), #ff6b6b);
+    border: none;
+}
+
+/* Progress Bar */
+.progress {
+    border-radius: 10px;
+    height: 10px;
+}
+
+.progress-bar {
+    background: linear-gradient(45deg, var(--primary-color), #4dabf7);
+    border-radius: 10px;
+}
+
+/* Badge Styles */
+.badge {
+    font-size: 0.85em;
+    padding: 0.4em 0.8em;
+    border-radius: 12px;
+}
+
+/* Alert Styles */
+.alert {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/* Chart Containers */
+#categoryChart,
+#timelineChart {
+    max-height: 400px;
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    .table-responsive {
+        border-radius: 10px;
+    }
+    
+    .btn-group-vertical .btn {
+        margin-bottom: 5px;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0056b3;
+}
+
+/* Icon Enhancements */
+.fas, .far {
+    margin-right: 0.25rem;
+}
+
+
+
+/* ======================= */
+/* 📱 Mobile & Tablet View */
+/* ======================= */
+
+@media (max-width: 992px) {
+  .login-container {
+    max-width: 90%;
+    margin: 50px auto;
+    padding: 20px;
+  }
+
+  .card {
+    margin-bottom: 15px;
+    padding: 10px;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .form-control, .form-select {
+    font-size: 15px;
+    height: 42px;
+  }
+
+  .btn {
+    padding: 0.4rem 1rem;
+    font-size: 15px;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .progress {
+    height: 8px;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  #categoryChart,
+  #timelineChart {
+    max-height: 300px;
+  }
+}
+
+/* ======================= */
+/* 📱 Small Mobile Devices */
+/* ======================= */
+
+@media (max-width: 576px) {
+  .login-container h2 {
+    font-size: 1.4rem;
+  }
+
+  .btn-group-vertical .btn {
+    margin-bottom: 8px;
+    width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .badge {
+    font-size: 0.75em;
+    padding: 0.3em 0.6em;
+  }
+
+  .alert {
+    font-size: 14px;
+  }
+
+  .table thead {
+    font-size: 13px;
+  }
+
+  .table tbody {
+    font-size: 14px;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+  }
+}

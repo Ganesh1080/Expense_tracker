@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}{% if edit_mode %}Edit{% else %}Add{% endif %} Expense - Expense Tracker{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="fas fa-{% if edit_mode %}edit{% else %}plus{% endif %} me-2"></i>
+                    {% if edit_mode %}Edit Expense{% else %}Add New Expense{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title *</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       id="title" 
+                                       name="title" 
+                                       value="{{ expense.title if edit_mode else '' }}"
+                                       placeholder="e.g., Lunch at restaurant"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">Amount (₹) *</label>
+                                <input type="number" 
+                                       class="form-control" 
+                                       id="amount" 
+                                       name="amount" 
+                                       step="0.01"
+                                       min="0"
+                                       value="{{ expense.amount if edit_mode else '' }}"
+                                       placeholder="0.00"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="category_id" class="form-label">Category *</label>
+                                <select class="form-select" id="category_id" name="category_id" required>
+                                    <option value="">Select Category</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}" 
+                                            {% if edit_mode and expense.category_id == category.id %}selected{% endif %}>
+                                            {{ category.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="expense_date" class="form-label">Date *</label>
+                                <input type="date" 
+                                       class="form-control" 
+                                       id="expense_date" 
+                                       name="expense_date" 
+                                       value="{{ expense.expense_date if edit_mode else '' }}"
+                                       max=""
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" 
+                                  id="description" 
+                                  name="description" 
+                                  rows="3"
+                                  placeholder="Additional details (optional)">{{ expense.description if edit_mode else '' }}</textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>
+                            {% if edit_mode %}Update Expense{% else %}Add Expense{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h6 class="card-title">
+                    <i class="fas fa-info-circle me-1"></i>Tips
+                </h6>
+                <ul class="mb-0 text-muted">
+                    <li>Fill all fields marked with *</li>
+                    <li>Use clear titles for easy tracking</li>
+                    <li>Pick the right category for accuracy</li>
+                    <li>Add notes if necessary</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const dateInput = document.getElementById('expense_date');
+    if (!dateInput.value) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.value = today;
+    }
+    dateInput.max = new Date().toISOString().split('T')[0];
+});
+
+document.querySelector('form').addEventListener('submit', function (e) {
+    const title = document.getElementById('title').value.trim();
+    const amount = parseFloat(document.getElementById('amount').value);
+    const category = document.getElementById('category_id').value;
+    const date = document.getElementById('expense_date').value;
+
+    if (!title || !amount || amount <= 0 || !category || !date) {
+        e.preventDefault();
+        alert('Please fill all required fields correctly.');
+        return false;
+    }
+
+    if (amount > 1000000) {
+        e.preventDefault();
+        alert('Amount too large. Please verify.');
+        return false;
+    }
+});
+</script>
+{% endblock %}
